@@ -8,4 +8,5 @@ def index(request):
 
 
 def about(request):
+    # retrieve realtors and diplay
     return render(request, 'pages/about.html')
