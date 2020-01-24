@@ -23,12 +23,12 @@ class Listing(models.Model):
     is_published = models.BooleanField(default=True)
     list_date = models.DateField(default=datetime.today)
     photo_main = models.ImageField(upload_to="media/%y/%m/%d")
-    photo_1 = models.ImageField(upload_to="media/%y/%m/%d", default='')
-    photo_2 = models.ImageField(upload_to="media/%y/%m/%d", default='')
-    photo_3 = models.ImageField(upload_to="media/%y/%m/%d", default='')
-    photo_4 = models.ImageField(upload_to="media/%y/%m/%d", default='')
-    photo_5 = models.ImageField(upload_to="media/%y/%m/%d", default='')
-    photo_6 = models.ImageField(upload_to="media/%y/%m/%d", default='')
+    photo_1 = models.ImageField(upload_to="media/%y/%m/%d", blank=True)
+    photo_2 = models.ImageField(upload_to="media/%y/%m/%d", blank=True)
+    photo_3 = models.ImageField(upload_to="media/%y/%m/%d", blank=True)
+    photo_4 = models.ImageField(upload_to="media/%y/%m/%d", blank=True)
+    photo_5 = models.ImageField(upload_to="media/%y/%m/%d", blank=True)
+    photo_6 = models.ImageField(upload_to="media/%y/%m/%d", blank=True)
 
     def __str__(self):
         return self.title
