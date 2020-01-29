@@ -4,7 +4,7 @@ from listings import views
 
 urlpatterns = [
     url(r'^$', views.listings, name='listings'),
-    url(r'(?P<listing_id>\d+)/$', views.listing, name='listing'),
-    url(r'search/$', views.search, name='search')
+    url(r'^(?P<listing_id>\d+)/$', views.listing, name='listing'),
+    url(r'^search/', views.search, name='search')
 
 ]
