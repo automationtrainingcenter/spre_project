@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from pages.views import index
 
 # Create your views here.
 
@@ -13,13 +14,13 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, 'Welcome to Dashboard')
             return redirect('dashboard')
         else:
-            print('invalid credentials')
             messages.error(request, 'Invalid credentials')
             return redirect('login')
-
-    return render(request, 'accounts/login.html')
+    else:
+        return render(request, 'accounts/login.html')
 
 
 def register(request):
@@ -30,21 +31,25 @@ def register(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         conf_password = request.POST.get('password2')
-
-        if User.objects.filter(username=username).exists():
-            print('username already taken')
-            messages.error(request, 'Username already taken')
+        if password == conf_password:
+            if User.objects.filter(username=username).exists():
+                print('username already taken')
+                messages.error(request, 'Username already taken')
+            else:
+                if password:
+                    User.objects.create_user(first_name=first_name, last_name=last_name, username=username,
+                                             email=email, password=password)
+                return redirect('login')
         else:
-            if password:
-                User.objects.create_user(first_name=first_name, last_name=last_name, username=username,
-                                         email=email, password=password)
-            return redirect('login')
+            messages.error(request, 'Passwords did not match')
     return render(request, 'accounts/register.html')
 
 
 def logout_view(request):
-    return render(request, 'accounts/logout.html')
+    logout(request)
+    messages.success(request, 'logged out successfully')
+    return redirect(index)
 
 
 def dashboard(request):
-    return render(request, 'account/dashboard.html')
+    return render(request, 'accounts/dashboard.html')

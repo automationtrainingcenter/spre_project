@@ -76,6 +76,20 @@
                     </li>
                 </ul>
 
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav ml-auto">
+                    <li {% if 'dashboard' in request.path%} class="nav-item active mr-3" {% else %}
+                        class="nav-item mr-3" {% endif %}>
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            <i class="fas fa-user-plus"></i> Welcome {{ user.first_name }} | Dashboard</a>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Logout</a>
+                    </li>
+                </ul>
+                {% else %}
                 <ul class="navbar-nav ml-auto">
                     <li {% if 'register' in request.path%} class="nav-item active mr-3" {% else %} class="nav-item mr-3"
                         {% endif %}>
@@ -89,6 +103,9 @@
                             Login</a>
                     </li>
                 </ul>
+                {% endif %}
+
+
             </div>
         </div>
     </nav>
