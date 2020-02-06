@@ -6,7 +6,7 @@ from datetime import datetime
 
 class contact(models.Model):
     user_id = models.IntegerField()
-    listing = models.IntegerField()
+    listing = models.CharField(max_length=50)
     listing_id = models.IntegerField()
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
